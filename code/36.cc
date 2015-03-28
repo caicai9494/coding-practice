@@ -14,22 +14,21 @@ using namespace std;
 class Solution
 {
     public:
-	bool checkRC(vector<vector<char> > &board, int i, bool checkRow)
+	bool checkRC(vector<vector<char> > &board, int i)
 	{
 	    int boardCheck[9];
 	    memset(boardCheck, 0, sizeof(int) * 9);
-	    if(checkRow)
-	    {
 		for(unsigned int r = 0; r < 9; r++)
 		    if(board[i][r] != '.')
 			boardCheck[board[i][r]-'1'] ++;
-	    }
-	    else
-	    {
+
+	    for(int j = 0; j < 9; j++)
+		if(boardCheck[j] > 1) return false;
+	    memset(boardCheck, 0, sizeof(int) * 9);
+
 		for(unsigned int c = 0; c < 9; c++)
 		    if(board[c][i] != '.')
 			boardCheck[board[c][i]-'1'] ++;
-	    }
 		    
 
 	    for(int j = 0; j < 9; j++)
@@ -59,9 +58,7 @@ class Solution
 	{
 	    for(int i = 0; i < 9; i++)
 	    {
-		if(!checkRC(board, i, true))
-		    return false;
-		if(!checkRC(board, i, false))
+		if(!checkRC(board, i))
 		    return false;
 	    }
 
