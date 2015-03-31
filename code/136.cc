@@ -19,17 +19,6 @@ class Solution
 	    for(int i = 0; i < n; i++)
 		num ^= A[i];
 	    return num;
-	    /*
-	    set<int> container;
-	    for(int i = 0; i < n; i++)
-	    {
-		if(container.find(A[i]) == container.end())
-		    container.insert(A[i]);
-		else
-		    container.erase(A[i]);
-	    }
-	    return *container.begin();
-	    */
 	}
 
 };
