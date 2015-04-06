@@ -8,43 +8,28 @@ using namespace std;
 class Solution {
 public:
     static ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-	ListNode *merged = new ListNode(0);
-	ListNode *head = merged;
+	ListNode *p, *head; //dummy
+	head = p = new ListNode(0);
 	while(l1 != NULL || l2 != NULL)
 	{
-	    if(l1 == NULL)
+	    if(l1 != NULL && (l2 != NULL || l1->val < l2->val))
 	    {
-		merged->next = l2;
-		merged = merged->next;
-		l2 = l2->next;
-		//break;
-	    }
-	    else if(l2 == NULL)
-	    {
-		merged->next = l1;
-		merged = merged->next;
+		p->next = l1;
 		l1 = l1->next;
-		
+	    }
+	    else
+	    {
+		p->next = l2;
+		l2 = l2->next;
 	    }
 
-	    else if(l1->val >= l2->val)
-	    {
-		merged->next = l2;
-		merged = merged->next;
-		l2 = l2->next;
-		//if(!l2)
-		  //  break;
-	    }
-	    else if(l1->val < l2->val)
-	    {
-		merged->next = l1;
-		merged = merged->next;
-		l1 = l1->next;
-	    }
+	    p = p->next;
 	}
 
+	p = head->next;
+	delete head;
 	
-	return head->next;
+	return p;
     }
 };
 
