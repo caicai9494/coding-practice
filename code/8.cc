@@ -50,7 +50,7 @@ class Solution
 	    {
 		if(ret > numeric_limits<int>::max())
 		    return numeric_limits<int>::max(); 
-		else return sign * (int)ret;
+		else return sign * (int)rek;
 
 	    }	//deal with overflow
 

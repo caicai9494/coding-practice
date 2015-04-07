@@ -14,27 +14,17 @@ class Solution
     public:
 	int maxProfit(vector<int> &prices)
 	{
-	    if(prices.empty()) return 0;
+	    int ret, back;
+	    ret = back = 0;
 
-	    int win = 0, lastwin = 0;
-	    int last_price = prices[0];
-	    for(int &price: prices)
+	    for(unsigned int i = 1; i < prices.size(); i++)
 	    {
-		if(win < 0) 
-		    win = 0;
-
-		//portofolio negative
-		int diff = price - last_price;
-		if(diff < 0)
-		{
-		    if(win > lastwin)
-		        lastwin = win;
-		}
-
-		win += diff;
-		last_price = price;
+		ret += prices[i] - prices[i-1];
+		if(ret < 0) ret = 0;
+		if(ret > back) back = ret;
 	    }
-	    return lastwin > win ? lastwin : win;
+
+	    return back;
 	}
 
 };
