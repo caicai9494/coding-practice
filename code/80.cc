@@ -12,40 +12,17 @@ class Solution {
 public:
     int removeDuplicates(int A[], int n) {
 
-	int i = 0, j = 0;
-	while(j < n-1)
-	{
-	    while(A[j] == A[j+1])
-		j++;
+	if(n == 0) return 0;
 
-	    if(i != j)
-	        A[i++] = A[j++];
-	    else
-		i++, j++;
-	}
-	return i;
-	/*
-	int count = n;
-	int i;
-	for(i = n - 1; i >= 1; i--)
+	int i, j = 0;
+	bool isTwice = false;
+	for(i = 1; i < n; i++)
 	{
-	    int j = i;
-	    while(j >= 1 && A[j] == A[j-1])
-		j--;
-	    if(j != i)
-	    {
-		int offset = i - j;
-		count -= offset;
-		for(int k = j; k < count; k++)
-		{
-		    A[k] = A[k+offset];
-		}
-	    }
-	    i = j;
+	    if(A[i] != A[i-1]) A[j+1] = A[i], j++, isTwice = false;
+	    else if(A[i] == A[i-1] && !isTwice) isTwice = true, A[j+1] = A[i], j++;
 	}
-
-	return count;
-	*/
+	
+	return j+1;
     }
 };
 int main()

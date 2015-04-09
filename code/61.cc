@@ -15,7 +15,7 @@ class Solution
     public:
 	ListNode *rotateRight(ListNode* head, int k)
 	{
-	    if(!head) return NULL;
+	    if(!head || !k) return NULL;
 
 	    int count = 0; //count length
 	    ListNode *ptr, *target;
@@ -41,6 +41,7 @@ class Solution
 
 	    while(target->next != NULL)
 		target = target->next;
+
 	    target->next = head;
 	    head = ptr->next;
 	    ptr->next = NULL;

@@ -13,27 +13,20 @@ using namespace std;
 class Solution
 {
     public:
+	TreeNode *prev;
 	bool isValidBST(TreeNode *root)
 	{
 	    if(root == NULL) return true;
-	    if(greater(root, root->left) && less(root, root->right))
-		return (isValidBST(root->left) && isValidBST(root->right));
-	}
-	bool greater(TreeNode *root, TreeNode *obj)
-	{
-	    if(root == NULL || obj == NULL) return true;
 
-	    if(root->val > obj->val && greater(root, obj->left) && greater(root, obj->right))
-		return true;
-	    else return false;
-	}
-	bool less(TreeNode *root, TreeNode *obj)
-	{
-	    if(root == NULL || obj == NULL) return true;
+	    if(!isValidBST(root->left))
+		return false;
 
-	    if(root->val < obj->val && less(root, obj->left) && less(root, obj->right))
-		return true;
-	    else return false;
+	    if(prev && prev->val >= root->val)
+		return false;
+	    prev = root;
+
+	    if(!isValidBST(root->right))
+		return false;
 	}
 
 };
