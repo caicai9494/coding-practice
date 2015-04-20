@@ -10,35 +10,67 @@
 #include <set>
 
 using namespace std;
+/*
 class Solution
 {
     public:
-	int maxSubArray(int A[], int n)
+	int maxSubArray(vector<int>& nums)
 	{
-	    int maxele, backup, sum;
-	    backup = sum = 0 ;
-	    maxele = numeric_limits<int>::min();
+	    int backup, sum;
+	    sum = 0;
+	    backup = numeric_limits<int>::min();
 
-	    for(int i = 0; i < n; i++)
+	    unsigned int S = nums.size();
+	    for(unsigned int i = 0; i < S; i++)
 	    {
-		if(maxele < A[i]) maxele = A[i];
-
-		sum += A[i];
-		if(sum < 0) sum = 0;
+		sum += nums[i];
 
 		if(backup < sum)
 		    backup = sum;
+
+		if(sum < 0) sum = 0;
 	    }
 
-	    if(!sum) return maxele;
 	    return backup;
 	}
 
 };
+*/
+
+inline int max(int a, int b) { return a > b ? a : b; }
+
+int maxSubRoutine(int A[], int left, int right) {
+    if(left >= right) return A[left];
+
+    int mid = (left + right) / 2;
+
+    int lmax = maxSubRoutine(A, left, mid);
+    int rmax = maxSubRoutine(A, mid + 1, right);
+
+    
+    int tempsum = 0,  leftsum, rightsum;
+    leftsum = rightsum = INT_MIN;
+    for(int i = mid; i >= left; i--) {
+	tempsum += A[i];
+	if(tempsum > leftsum) leftsum = tempsum;
+    }
+
+    tempsum = 0;
+    for(int i = mid + 1; i <= right; i++) {
+	tempsum += A[i];
+	if(tempsum > rightsum) rightsum = tempsum;
+    }
+
+    int mmax = max(max(rightsum, leftsum), rightsum + leftsum);
+
+    return max(max(lmax, rmax), mmax);
+}
+
+int maxSubArray(int A[], int n) {
+    return maxSubRoutine(A, 0, n - 1);
+}
 int main()
 {
-    Solution s;
     int A[] = {1, 1, -2};
-    cout << s.maxSubArray(A, 3) << endl;
     return 0;
 }

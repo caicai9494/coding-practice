@@ -15,12 +15,12 @@ class Solution
     public:
 	ListNode *rotateRight(ListNode* head, int k)
 	{
-	    if(!head || !k) return NULL;
+	    if(!head || !head->next || k == 0) return head;
 
-	    int count = 0; //count length
-	    ListNode *ptr, *target;
+	    int count = 1; //count length
+	    ListNode *ptr;
 	    ptr = head;
-	    while(ptr != NULL) 
+	    while(ptr->next) 
 	    {
 		count++;
 		ptr = ptr->next;
@@ -28,25 +28,16 @@ class Solution
 
 	    k %= count;
 	    if(k == 0) return head; //return null when k is too big
+	    ptr->next = head;
 
 	    ptr = head; //traverse to object node
-	    while(count - k > 1)
-	    {
+	    for(int i = 0; i < n - k - 1; i++)
 		ptr = ptr->next;
-		count--;
-	    }
 
-	    target = ptr->next;
-	    //ptr->next = NULL; //set previous node
-
-	    while(target->next != NULL)
-		target = target->next;
-
-	    target->next = head;
-	    head = ptr->next;
+	    ListNode* newHead = ptr->next;
 	    ptr->next = NULL;
 
-	    return head;
+	    return newHead;
 	    
 	}
 

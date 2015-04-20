@@ -15,28 +15,20 @@ class Solution
     public:
 	int reverse(int x)
 	{
-	    if(x == 0) return 0;
+	    if(x < 0 && -x < 0) return 0;
+	    if(x < 0) return -reverse(-x);
 
-	    int sign;
-	    int ret, ux;
-
-	    sign = (x > 0) ? 1 : -1;
-	    ux = (sign * x);
-	    ret = 0;
-
-	    while(ux > 0)
+	    int ret = 0, rm;
+	    while(x > 0)
 	    {
-		if(ret > numeric_limits<int>::max() / 10)
-		    return 0;
+		rm = x % 10;
+		if(numeric_limits<int>::max() / 10 < ret) return 0;
 
-		ret = ret * 10;
-		if(numeric_limits<int>::max() - ret < ux % 10) 
-		    return 0;
-		ret += ux % 10;
-		ux /= 10;
+		ret = ret * 10 + rm;
+		x /= 10;
 	    }
 
-	    return sign * ret;
+	    return ret;
 	}
 
 };
