@@ -56,8 +56,4 @@ std::ostream& operator<< (std::ostream& stream, const std::list<T>& list)
 	exit(EXIT_FAILURE); \
     } \
 
-
-	
-
-
 #endif
