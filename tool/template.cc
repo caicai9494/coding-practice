@@ -15,6 +15,16 @@
 
 #include <tool/lz_test.h>
 
+class SUBTHIS {
+
+  public:
+    SUBTHIS() {}
+    ~SUBTHIS() {}
+
+  private:
+
+};
+
 int main()
 {
     //ASSERT_EQ(1, 1);

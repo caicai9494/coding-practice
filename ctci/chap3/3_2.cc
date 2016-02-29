@@ -22,17 +22,32 @@ class MinStack {
     void push(const T& val) 
     {
 	d_stack.push(val);
-	if (d_minStack.empty() || d_minStack.top() >= val) {
-	    d_minStack.push(val);
+
+	if (d_minStack.empty() || d_minStack.top().first > val) {
+	    d_minStack.push(std::make_pair(val, 1));
 	}  
+	else if (d_minStack.top().first == val) {
+	    ++ d_minStack.top().second;
+	}
+	else {
+	    // do nothing if 'val' is greator than 'min'
+	}
     }
     void pop() 
 	// undefined behaviour if 'MinStack' is empty
     {
 	assert(!d_stack.empty());
 
-	if (d_stack.top() == d_minStack.top()) {
-	    d_minStack.pop();
+	// check the min count
+	// if count is 1 then pop the top
+	// otherwise decrement
+	if (d_stack.top() == d_minStack.top().first ) {
+            if (d_minStack.top().second == 1) {
+		d_minStack.pop();
+	    }
+	    else {
+		-- d_minStack.top().second;
+	    }
 	}
 	d_stack.pop();
     }
@@ -49,11 +64,12 @@ class MinStack {
 
     const T& min() const 
     {
-	return d_minStack.top();
+	return d_minStack.top().first;
     }
 
   private:
-    std::stack<T> d_minStack;
+    typedef std::pair<T, int> TCount;
+    std::stack<TCount> d_minStack;
     std::stack<T> d_stack;
 };
 
@@ -79,6 +95,9 @@ int main()
     mstack2.push(3);
     ASSERT_EQ(mstack2.top(), 3);
     ASSERT_EQ(mstack2.min(), 1);
+
+    const MinStack<int>& rmstack2 = mstack2;
+    ASSERT_EQ(rmstack2.min(), 1);
 
     //ASSERT_TRUE("123" == "1231");
 
