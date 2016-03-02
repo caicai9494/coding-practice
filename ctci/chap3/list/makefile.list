@@ -1,0 +1,17 @@
+CC=g++ 
+
+LIBS=
+LIBS_INC=. ..
+
+TSK=list.tsk
+SRC=list.t.cc
+
+PTHREAD_ENABLED=#-pthread
+
+CPPFLAGS=$(LIBS_INC:%=-I%) $(LIBS:%=-L%) -g -std=c++11 $(PTHREAD_ENABLED)
+
+all:
+	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
+
+clean:
+	rm -f *.o $(TSK)
