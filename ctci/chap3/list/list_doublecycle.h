@@ -1,5 +1,5 @@
-#ifndef LIST_SINGLE_H 
-#define LIST_SINGLE_H 
+#ifndef LIST_DOUBLECYCLE_H 
+#define LIST_DOUBLECYCLE_H 
 
 #include <cassert>
 
