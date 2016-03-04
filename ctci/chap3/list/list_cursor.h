@@ -42,7 +42,7 @@ class List {
   public:
 
     List() :
-      d_last(nullptr), d_prev(nullptr) {}
+      d_last(&d_head), d_prev(nullptr) {}
 
     ~List() 
     {
@@ -69,18 +69,7 @@ class List {
 
     }
 
-    Node<T>* getEnd()
-    {
-	return nullptr;
-    }
-
-    void rewind()
-    {
-	d_prev = &d_head;
-    }
-
     void removeCurrent()
-	// must be called after calling 'getNext'
     {
 	if (nullptr == d_prev) {
 	    return;
@@ -111,16 +100,6 @@ class List {
 	lst.d_head.setNext(nullptr);
     }
 
-    /*
-    void rewind() 
-    {
-	if (empty()) {
-	    return nullptr;
-	}
-	d_prev = &d_head;
-    }
-    */
-
     bool empty() const
     {
 	return d_head.next() == nullptr;
@@ -130,7 +109,6 @@ class List {
 
     Node<T> d_head;
     Node<T> *d_last;
-
     Node<T> *d_prev;
 
 };
