@@ -32,21 +32,25 @@ class Solution {
     {
 	assert(n != 0);
 
-	unordered_map<unsigned, unsigned> table;
-	table[1] = 1;
-	table[2] = 1;
+	if (n < 3) {
+	    return 1;
+	}
 
-	auto it = table.find(n);
-	if (it != table.end()) {
+	auto it = d_table.find(n);
+	if (it != d_table.end()) {
 	    return it->second;
 	}
 	else {
 	    unsigned next = fibonacci(n - 1) + fibonacci(n - 2);
-	    table[n] = next;
+	    d_table[n] = next;
 	    return next;
 	}
     }
+
   private:
+
+    unordered_map<unsigned, unsigned> d_table;
+
 };
 
 int main()
@@ -55,7 +59,7 @@ int main()
     //DBG(s.fibonacciSlow(100));
     // doesn't terminate after 10 secs 
      
-    for (int i = 1; i < 30; ++i) {
+    for (int i = 1; i < 300; ++i) {
 	DBG(s.fibonacci(i));
     }
 
