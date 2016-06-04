@@ -34,30 +34,35 @@ using namespace std;
 
 class Solution {
   public:
+    int d_count;
+    int d_k;
+    int d_val;
     int kthSmallest(TreeNode* root, int k) 
     {
 	assert(root != NULL);
 
-	int thisCount = count(root->left) + 1;
-	if (thisCount == k) {
-	    return root->val;
-	}
-	else if (thisCount < k) {
-	    return kthSmallest(root->right, k - thisCount);
-	}
-	else {
-	    return kthSmallest(root->left, k);
-	}
+	d_count = 0;
+	d_k = k;
+
+	traverse(root);
+
+	return ;
     }
 
-    int count(TreeNode* root)
+    void traverse(TreeNode* root)
     {
-	if (root == NULL) {
-	    return 0;
+	if (!root || d_count == d_k) {
+	    return;
 	}
 
-	return 1 + count(root->left) 
-	         + count(root->right);
+	traverse(root->left);
+
+	++count;
+	if (d_count == d_k) {
+	    d_val = root->val;
+	}
+	
+	traverse(root->right);
     }
 };
 
