@@ -34,24 +34,24 @@ class Solution
 		    if(topNode == NULL)
 		    {
 			result.push_back(temp);
-			temp.resize(0);
+			temp.clear();
 			if(container.size() > 0)
 			    container.push(NULL);
 		    }
 		    else
 		    {
 		        temp.push_back(topNode->val);
-			if(topNode->left != NULL)
-			container.push(topNode->left);
-			if(topNode->right != NULL)
-			container.push(topNode->right);
+			if(topNode->left) {
+			    container.push(topNode->left);
+			}
+			if(topNode->right) {
+			    container.push(topNode->right);
+			}
 
 		    }
 
 		}
 		
-		if(!temp.empty())
-		    result.push_back(temp);
 	    }
 
 	    return result;

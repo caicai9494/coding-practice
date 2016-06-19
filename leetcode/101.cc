@@ -11,33 +11,26 @@
 #include <queue>
 
 using namespace std;
-class Solution
-{
-    public:
-	bool isSymmetric(TreeNode *root) {
-	    if(!root) return true;
-	    return inorder(root) == inorder2(root) && preorder(root) == preorder2(root);
+
+class Solution {
+  public:
+    bool isSymmetric(TreeNode* root) 
+    {
+	if (!root) {
+	    return true;
+	}
+	return isSymImpl(root->left, root->right);
+    }
+
+    bool isSymImpl(TreeNode* left, TreeNode* right) 
+    {
+	if (left && right) {
+	    return left->val == right->val ?
+		isSymImpl(left->left, right->right) &&
+		isSymImpl(left->right, right->left) : false;
 	}
 
-	string inorder(TreeNode *root) {
-	    if(!root) return "";
-	    else return inorder(root->left) + to_string(root->val) + inorder(root->right);
-	}
-	string inorder2(TreeNode *root) {
-	    if(!root) return "";
-	    else return inorder2(root->right) + to_string(root->val) + inorder2(root->left);
-	}
-
-	string preorder(TreeNode *root) {
-	    if(!root) return "";
-	    else return to_string(root->val) + preorder(root->left) + preorder(root->right);
-	}
-
-	string preorder2(TreeNode *root) {
-	    if(!root) return "";
-	    else return to_string(root->val) + preorder2(root->right) + preorder2(root->left);
-	}
-
-
+	return !left && !right;
+    }
 
 };
